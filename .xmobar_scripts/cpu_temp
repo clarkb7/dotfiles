@@ -1,0 +1,13 @@
+#! /bin/bash
+
+TEMP=`sensors | awk '{ if ( NR == 4 ) print $3+0}'`
+if [ "$TEMP" -gt "75" ]; then
+       COLOUR="red"
+elif [ "$TEMP" -lt "30" ]; then
+       COLOUR="blue"
+else
+       COLOUR="green"
+fi
+
+# Format and print
+echo "<fc=$COLOUR>$TEMP</fc>C"

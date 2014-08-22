@@ -1,0 +1,30 @@
+Config { font = "xft:DejaVuMono:size=9",
+         commands = [
+           Run Weather "KALB" ["-t", "Temp: <tempF>F",
+                               "-L", "32", "-H", "80",
+                               "-l", "lightblue", "-n", "green", "-h", "red"] 36000,
+           Run Network "wlp4s0" ["-L","0","-H","32","--normal","green","--high","red"] 10,
+           Run Cpu ["-t", "CPU: <total>%",
+                    "-L","3","-H","50","--normal","green","--high","red"] 10,
+           Run Memory ["-t","Mem: <usedratio>%"] 10,
+           Run Com "uname" ["-s","-r"] "" 36000,
+           Run Date "%a %b %_d %Y * %H:%M:%S" "date" 10,
+           Run StdinReader,
+           Run CoreTemp ["-t", "<core0>C",
+                         "-L", "30", "-H", "60",
+                         "-l", "lightblue", "-n", "gray90", "-h", "red"] 50,
+           Run BatteryP ["BAT0", "BAT1"]
+                        ["-t", "<acstatus>",
+                         "-L", "10", "-H", "80", "-p", "3",
+                         "-l", "red", "-h", "green",
+                         "--", "-O", "Charging", "-o", "Bat: <left>%", "-i", "",
+                         "-L", "-15", "-H", "-5"] 600,
+           Run Brightness ["-t", "Screen: <percent>%"] 60,
+           Run Com "dropbox" ["status"] "dropbox" 50,
+           Run Com "/home/branden/.xmobar_scripts/volume" [] "volume" 10
+         ],
+         sepChar = "%",
+         alignSep = "}{",
+         template = "%StdinReader% } %cpu% * %coretemp% | %memory% | %wlp4s0% | %bright% { %dropbox% * %battery% * Vol: %volume% * <fc=#00FF00>%uname%</fc> * <fc=#FF0000>%date%</fc> * %KALB%"
+       }
+
