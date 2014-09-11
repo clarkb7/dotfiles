@@ -1,0 +1,11 @@
+(require 'package)
+(push '("marmalade" . "http://marmalade-repo.org/packages/")
+      package-archives )
+(push '("melpa" . "http://melpa.milkbox.net/packages/")
+      package-archives)
+(add-to-list 'load-path "~/.emacs.d/elpa/evil-20140910.441")
+(require 'evil)
+(evil-mode 1)
+
+(define-key evil-motion-state-map (kbd "<f13>") 'evil-insert-state)
+(define-key evil-insert-state-map (kbd "<f13>") 'evil-normal-state)

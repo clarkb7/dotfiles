@@ -55,7 +55,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/vendor_perl:/usr/b
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -78,3 +78,30 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/vendor_perl:/usr/b
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+# http://onethingwell.org/post/586977440/mkcd-improved
+function mkcd
+{
+  dir="$*";
+  mkdir -p "$dir" && cd "$dir";
+}
+# lock screen using xscreensaver
+function slock
+{
+  xscreensaver-command --lock;
+}
+# Colored man pages
+# https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
+man() {
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
+}
+# emacs no window mode by default
+alias emacs='emacs -nw'
+# Fix TERM errors on ssh
+alias ssh='TERM=xterm-256color ssh'

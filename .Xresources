@@ -7,6 +7,8 @@ URxvt*.background: [60]#000000
 URxvt*.font: xft:DejaVu Sans Mono:size=9
 URxvt*.foreground: [100]#00FF00
 
+URxvt*.scrollBar: false
+
 URxvt.perl-ext-common:          ...,tabbedex,font-size,...
 URxvt.tabbed.autohide:          true
 URxvt.keysym.Control-t:         perl:tabbedex:new_tab

@@ -8,3 +8,6 @@ colorscheme darkblue
 highlight ColorColumn ctermbg=DarkGray
 " Transparent background
 hi Normal ctermbg=NONE
+" Syntax extensions
+au BufRead,BufNewFile *.pl set filetype=prolog
+

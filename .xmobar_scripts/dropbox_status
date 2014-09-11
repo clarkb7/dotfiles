@@ -1,0 +1,10 @@
+#!/bin/bash
+
+STATUS=`dropbox status`
+if [ "$STATUS" == "Up to date" ]; then
+  STATUS="<fc=#00FF00>\u2713</fc>"
+else
+  STATUS="<fc=#FF0000>\u2717</fc>"
+fi
+
+echo -e "DB: $STATUS"
