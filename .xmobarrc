@@ -1,4 +1,5 @@
 Config { font = "xft:DejaVuMono:size=9",
+         position = TopW L 97,
          commands = [
            Run Weather "KALB" ["-t", "Temp: <tempF>F",
                                "-L", "32", "-H", "80",
@@ -16,14 +17,13 @@ Config { font = "xft:DejaVuMono:size=9",
                         ["-t", "<acstatus>",
                          "-L", "10", "-H", "80", "-p", "3",
                          "-l", "red", "-h", "green",
-                         "--", "-O", "Charging", "-o", "Bat: <left>%", "-i", "Charged",
+                         "--", "-O", "Charging", "-o", "Bat: <left>% / <timeleft>", "-i", "Charged",
                          "-L", "-15", "-H", "-5"] 600,
            Run Com "/home/branden/.xmobar_scripts/brightness" [] "bright" 60,
-           Run Com "/home/branden/.xmobar_scripts/dropbox_status" [] "dropbox" 50,
            Run Com "/home/branden/.xmobar_scripts/volume" [] "volume" 10
          ],
          sepChar = "%",
          alignSep = "}{",
-         template = "%StdinReader% } %cpu% * %coretemp% | %memory% | %wlp3s0% | %bright% { %dropbox% * %battery% * Vol: %volume% * <fc=#FF0000>%date%</fc> * %KALB%"
+         template = "%StdinReader% } %cpu% * %coretemp% | %memory% | %wlp3s0% | %bright% { %battery% * Vol: %volume% * <fc=#FF0000>%date%</fc> * %KALB%"
        }
 

@@ -8,12 +8,9 @@ URxvt*.font: xft:DejaVu Sans Mono:size=9
 URxvt*.foreground: [100]#00FF00
 
 URxvt*.scrollBar: false
+URxvt*.color4: #0066FF
 
-URxvt.perl-ext-common:          ...,tabbedex,font-size,...
-URxvt.tabbed.autohide:          true
-URxvt.keysym.Control-t:         perl:tabbedex:new_tab
-URxvt.keysym.Control-Tab:       perl:tabbedex:next_tab
-URxvt.keysym.Control-Shift-Tab: perl:tabbedex:prev_tab
+URxvt.perl-ext-common:          ...,font-size,...
 
 URxvt.keysym.Control-Up:            perl:font-size:increase
 URxvt.keysym.Control-Down:          perl:font-size:decrease

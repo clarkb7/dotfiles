@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # $MUTE is the 'n' of "on" if the sound is muted, the 'f' of "off" if not
-MUTE=`amixer -c1 get Master | tail -c 3`
+MUTE=`amixer -c0 get Master | tail -c 3`
 if [ "$MUTE" == "f]" ]; then
        COLOUR="red"
 else
@@ -9,7 +9,7 @@ else
 fi
 
 # Returns the current master volume; requires alsa-utils
-VALUE=`amixer -c1 get Master | sed s/%.*$// | sed 's/^.*\[//' | tail -n 1`
+VALUE=`amixer -c0 get Master | sed s/%.*$// | sed 's/^.*\[//' | tail -n 1`
 
 # Format and print
 echo "<fc=$COLOUR>$VALUE</fc>%"

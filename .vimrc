@@ -10,4 +10,8 @@ highlight ColorColumn ctermbg=DarkGray
 hi Normal ctermbg=NONE
 " Syntax extensions
 au BufRead,BufNewFile *.pl set filetype=prolog
+" Use capslock for insert/normal
+set <F13>=^[[25~
+nnoremap <F13> i
+inoremap <F13> <Esc>l
 

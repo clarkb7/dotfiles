@@ -35,9 +35,9 @@ myConfig = defaultConfig
     `additionalKeysP`
     [("<XF86MonBrightnessUp>", spawn "xbacklight +20")
     ,("<XF86MonBrightnessDown>", spawn "xbacklight -20")
-    ,("<XF86AudioRaiseVolume>", spawn "amixer -c1 set Master 5+ unmute")
-    ,("<XF86AudioLowerVolume>", spawn "amixer -c1 set Master 5- unmute")
-    ,("<XF86AudioMute>", spawn "amixer -c1 set Master toggle")
+    ,("<XF86AudioRaiseVolume>", spawn "amixer -c0 set Master 5+ unmute")
+    ,("<XF86AudioLowerVolume>", spawn "amixer -c0 set Master 5- unmute")
+    ,("<XF86AudioMute>", spawn "amixer -c0 set Master toggle")
     ]
 
 myTerminal        = "urxvt"

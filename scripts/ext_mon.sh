@@ -10,3 +10,4 @@ then
   exit $E_BADARGS
 fi
 xrandr --output $1 --primary --left-of eDP1 --mode $2
+
