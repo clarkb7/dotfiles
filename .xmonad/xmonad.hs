@@ -11,6 +11,12 @@ import XMonad.Layout.NoBorders
 import XMonad.Hooks.ManageDocks
 import qualified XMonad.StackSet as W
 import XMonad.Actions.SpawnOn
+import XMonad.Util.Themes
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed
+import XMonad.Layout.WindowNavigation
+import XMonad.Layout.BoringWindows
+import XMonad.Layout.Simplest
 
 main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 
@@ -45,15 +51,29 @@ myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = fullscreenEventHook
 myManageHook      = fullscreenManageHook <+> manageDocks <+> ( isFullscreen --> doFullFloat ) <+>  manageHook defaultConfig
-myLayouts         = fullscreenFull $ smartBorders . avoidStruts $ (tiled ||| Mirror (tiled) ||| Full)
+myLayouts         = enableTabs $fullscreenFull $ windowNavigation $ boringWindows $ smartBorders . avoidStruts $ (tiled ||| Mirror (tiled) ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
+                       enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
+myTabTheme = (theme wfarrTheme)
+    { activeColor         = "#4c4c4c"
+    }
 myStartupHook     :: X ()
 myStartupHook     = do spawnOn "1:www" "chromium"
 myWorkspaces      = ["www", "irc", "VMs", "4", "5", "6", "7", "8", "9"]
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            [ ((modMask,               xK_a), sendMessage MirrorExpand)
            , ((modMask,               xK_z), sendMessage MirrorShrink)
+           , ((modMask .|. controlMask, xK_h), sendMessage $ pullGroup L)
+           , ((modMask .|. controlMask, xK_l), sendMessage $ pullGroup R)
+           , ((modMask .|. controlMask, xK_k), sendMessage $ pullGroup U)
+           , ((modMask .|. controlMask, xK_j), sendMessage $ pullGroup D)
+           , ((modMask .|. controlMask, xK_m), withFocused (sendMessage . MergeAll))
+           , ((modMask .|. controlMask, xK_u), withFocused (sendMessage . UnMerge))
+           , ((modMask .|. controlMask, xK_period), onGroup W.focusUp')
+           , ((modMask .|. controlMask, xK_comma), onGroup W.focusDown')
+           , ((modMask, xK_j), focusDown)
+           , ((modMask, xK_k), focusUp)
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
 
