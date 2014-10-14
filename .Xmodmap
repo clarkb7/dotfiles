@@ -250,3 +250,6 @@ keycode 255 =
 ! Switches caps-lock to F13 for insert/normal mode switching
 clear Lock
 keycode 66 = F13
+! Switches PrtSc to Super
+keycode 107 = Super_R
+
