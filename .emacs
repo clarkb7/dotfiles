@@ -7,12 +7,12 @@
       package-archives)
 
 ;; Color Theme
-;(require 'color-theme)
-;(color-theme-initialize)
-;(load-theme 'spolsky)
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-monokai)
 ;(color-theme-dg)
 ;(color-theme-complexity)
-(load-theme 'evenhold)
+;(load-theme 'evenhold)
 
 ;; Auctex
 (add-to-list 'load-path "/home/branden/.emacs.d/elpa/auctex-11.87.7/")
@@ -55,13 +55,19 @@
 (define-key evil-motion-state-map (kbd "<f13>") 'evil-insert-state)
 (define-key evil-insert-state-map (kbd "<f13>") (lambda () (evil-normal-state) (interactive) (evil-forward-char) ))
 
+;; org mode
+(setq org-log-done 'time)
+(setq org-checkbox-hierarchical-statistics t)
 ;; emacs stuff
 (electric-indent-mode 1)
 (menu-bar-mode -1)
 (global-linum-mode 1)
+(setq-default indent-tabs-mode nil)
 (setq default-tab-width 2)
 (setq show-trailing-whitespace t)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (when (fboundp 'windmove-default-keybindings)
-	  (windmove-default-keybindings))
+  (windmove-default-keybindings))
+(tool-bar-mode -1)
+
