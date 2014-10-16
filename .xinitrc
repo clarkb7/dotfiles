@@ -12,5 +12,7 @@ sh ~/.fehbg &
 dropboxd &
 # New key bindings
 xmodmap ~/.Xmodmap &
+# Notification menu
+/usr/bin/dunst -follow mouse -config ~/.dunstrc &
 # Yay!
 exec xmonad
