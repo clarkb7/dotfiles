@@ -241,7 +241,7 @@ sub nicklist_write_end {
 sub nicklist_write_line {
 	my ($line, $data) = @_;
 	if ($mode == $SCREEN) {
-		print STDERR "\033P\033[" . ($line+1) . ';'. ($irssi_width+1) .'H'. $screen_prefix . $data . "\033\\";
+		print STDERR "\033P\033[" . ($line+1) . ';'. ($irssi_width) .'H'. $screen_prefix . '|' . $data . "\033\\";
 	} elsif ($mode == $FIFO) {
 		$data = "\033[m$data"; # reset color
 		if ($line == $cursor_line+1) {
