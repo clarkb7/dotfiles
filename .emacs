@@ -62,6 +62,14 @@
 (define-key evil-motion-state-map (kbd "<f13>") 'evil-insert-state)
 (define-key evil-insert-state-map (kbd "<f13>") (lambda () (evil-normal-state) (interactive) (evil-forward-char) ))
 
+;; flycheck (syntax checker)
+(require 'flycheck)
+(setq flycheck-gcc-language-standard `"c++11")
+
+;; perspective
+(require 'perspective)
+(persp-mode)
+
 ;; org mode
 (setq org-log-done 'time)
 (setq org-checkbox-hierarchical-statistics t)
