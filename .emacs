@@ -18,6 +18,9 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-monokai)
+;; powerline-evil
+(require 'powerline-evil)
+(powerline-center-evil-theme)
 
 ;; Auctex
 (require 'tex)
