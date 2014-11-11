@@ -51,7 +51,7 @@ myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = fullscreenEventHook
 myManageHook      = fullscreenManageHook <+> manageDocks <+> ( isFullscreen --> doFullFloat ) <+>  manageHook defaultConfig
-myLayouts         = enableTabs $fullscreenFull $ windowNavigation $ boringWindows $ smartBorders . avoidStruts $ (tiled ||| Mirror (tiled) ||| Full)
+myLayouts         = enableTabs $ fullscreenFull $ windowNavigation $ boringWindows $ smartBorders . avoidStruts $ (tiled ||| Mirror (tiled) ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
                        enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
