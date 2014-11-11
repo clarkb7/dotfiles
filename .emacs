@@ -79,8 +79,9 @@
 (require 'salsa-mode)
 
 ;; emacs stuff
-(electric-indent-mode 1)
-(menu-bar-mode -1)
+(electric-pair-mode 1)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(setq compilation-window-height 12)
 (global-linum-mode 1)
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 2)
@@ -89,5 +90,32 @@
 (setq show-paren-delay 0)
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+(server-start)
+(setq x-select-enable-clipboard t)
+;; disable GUI menu
 (tool-bar-mode -1)
+(menu-bar-mode -1)
+;; ido mode
+(require 'ido)
+(ido-mode t)
+(ido-ubiquitous-mode t)
+
+;; backup settings
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.backups")) ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+(message "Deleting old backup files...")
+(let ((week (* 60 60 24 7))
+      (current (float-time (current-time))))
+  (dolist (file (directory-files temporary-file-directory t))
+    (when (and (backup-file-name-p file)
+               (> (- current (float-time (fifth (file-attributes file))))
+                  week))
+      (message "%s" file)
+      (delete-file file))))
 
