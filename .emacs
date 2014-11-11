@@ -22,6 +22,11 @@
 (require 'powerline-evil)
 (powerline-center-evil-theme)
 
+;; hilight symbols
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode t)
+(ahs-chrange-whole-buffer)
+
 ;; Auctex
 (require 'tex)
 (TeX-global-PDF-mode t)
