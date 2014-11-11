@@ -18,9 +18,6 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-monokai)
-;(color-theme-dg)
-;(color-theme-complexity)
-;(load-theme 'evenhold)
 
 ;; Auctex
 (require 'tex)
