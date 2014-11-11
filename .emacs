@@ -1,10 +1,18 @@
 (require 'package)
 (package-initialize)
-
 (push '("marmalade" . "http://marmalade-repo.org/packages/")
       package-archives )
 (push '("melpa" . "http://melpa.milkbox.net/packages/")
       package-archives)
+(add-to-list 'load-path "/~/.emacs.d")
+(defvar my-packages '(color-theme color-theme-monokai haskell-mode
+                      powerline-evil auto-highlight-symbol auctex
+                      popup auto-complete auto-complete-auctex
+                      ac-math auto-complete-c-headers ac-python
+                      evil flycheck))
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
 ;; Color Theme
 (require 'color-theme)
@@ -15,22 +23,17 @@
 ;(load-theme 'evenhold)
 
 ;; Auctex
-(add-to-list 'load-path "/home/branden/.emacs.d/elpa/auctex-11.87.7/")
 (require 'tex)
 (TeX-global-PDF-mode t)
 ;; Autocomplete
-(add-to-list 'load-path "/home/branden/.emacs.d/elpa/popup-20140815.629")
-(add-to-list 'load-path "/home/branden/.emacs.d/elpa/auto-complete-20140824.1658/")
 (require 'popup)
 (require 'auto-complete)
 (add-to-list 'ac-dictionary-directories "/home/branden/.emacs.d/elpa/auto-complete-20140824.1658/dict")
 (require 'auto-complete-config)
 (ac-config-default)
 ;; ac-math
-(add-to-list 'load-path "/home/branden/.emacs.d/elpa/ac-math-20131003.1604/")
 (require 'ac-math)
 ;; ac-auctex
-(add-to-list 'load-path "/home/branden/.emacs.d/elpa/auto-complete-auctex-20140223.958/")
 (add-to-list 'ac-modes 'latex-mode)
 (defun ac-LaTeX-mode-setup () ; add ac-sources to default ac-sources
   (setq ac-sources
@@ -49,7 +52,6 @@
 (add-hook 'c-mode-hook 'my:ac-c-headers-init)
 
 ;; evil mode
-(add-to-list 'load-path "~/.emacs.d/elpa/evil-20140910.441")
 (require 'evil)
 (evil-mode 1)
 (define-key evil-motion-state-map (kbd "<f13>") 'evil-insert-state)
