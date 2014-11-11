@@ -119,3 +119,9 @@
       (message "%s" file)
       (delete-file file))))
 
+;; screen chat mode
+(define-derived-mode chat-mode text-mode "chat"
+  "Major mode for screen chatting with people"
+  (interactive)
+  (buffer-face-set :family "inconsolata" :height 300)
+  (set 'fill-column 70))
