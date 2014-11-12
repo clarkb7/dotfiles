@@ -49,7 +49,11 @@ myTerminal        = "urxvt"
 myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = fullscreenEventHook
-myManageHook      = fullscreenManageHook <+> manageDocks <+> ( isFullscreen --> doFullFloat ) <+>  manageHook defaultConfig
+myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
+                    fullscreenManageHook <+>
+                    manageDocks <+>
+                    ( isFullscreen --> doFullFloat ) <+>
+                    manageHook defaultConfig
 myLayouts         = enableTabs $ fullscreenFull $ windowNavigation $ boringWindows $ smartBorders . avoidStruts $ (tiled ||| Mirror (tiled) ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
@@ -71,6 +75,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask .|. controlMask, xK_comma), onGroup W.focusDown')
            , ((modMask, xK_j), focusDown)
            , ((modMask, xK_k), focusUp)
+           , ((modMask .|. shiftMask, xK_h), spawn "feh --scale ~/Pictures/KB_United_States_Dvorak.svg.png")
+           , ((modMask .|. shiftMask, xK_slash), spawn "feh -B white --scale ~/Pictures/Xmbindings.png")
+           , ((modMask .|. shiftMask, xK_l), spawn "xscreensaver-command --lock")
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
 
