@@ -35,7 +35,6 @@ myConfig = defaultConfig
       manageHook      = myManageHook,
       layoutHook      = myLayouts,
       workspaces      = myWorkspaces,
-      startupHook     = myStartupHook,
       keys            = newKeys
     }
     `additionalKeysP`
@@ -58,8 +57,6 @@ myLayouts         = enableTabs $ fullscreenFull $ windowNavigation $ boringWindo
 myTabTheme = (theme wfarrTheme)
     { activeColor         = "#4c4c4c"
     }
-myStartupHook     :: X ()
-myStartupHook     = do spawnOn "1:www" "chromium"
 myWorkspaces      = ["www", "irc", "VMs", "4", "5", "6", "7", "8", "9"]
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            [ ((modMask,               xK_a), sendMessage MirrorExpand)
