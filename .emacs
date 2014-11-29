@@ -9,7 +9,7 @@
                       powerline-evil auto-highlight-symbol auctex
                       popup auto-complete auto-complete-auctex
                       ac-math auto-complete-c-headers ac-python
-                      evil flycheck))
+                      evil flycheck cmake-mode latex-preview-pane))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -78,6 +78,12 @@
 (add-to-list 'load-path "~/.emacs.d/modes")
 (require 'salsa-mode)
 
+;;cmake-mode
+(require 'cmake-mode)
+
+;;latex-preview-pane
+(require 'latex-preview-pane)
+
 ;; emacs stuff
 (electric-pair-mode 1)
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -92,6 +98,7 @@
   (windmove-default-keybindings))
 (server-start)
 (setq x-select-enable-clipboard t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; disable GUI menu
 (tool-bar-mode -1)
 (menu-bar-mode -1)
