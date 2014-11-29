@@ -99,6 +99,7 @@ aliases = {
   ATAG = "WINDOW SERVER";
   UNSET = "set -clear";
   RESET = "set -default";
+  slap = "/me slaps $0 around a bit with a large trout";
 };
 
 statusbar = {
