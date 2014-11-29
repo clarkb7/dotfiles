@@ -57,7 +57,9 @@ myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
                     manageDocks <+>
                     ( isFullscreen --> doFullFloat ) <+>
                     manageHook defaultConfig
-myLayouts         = mkToggle (NOBORDERS ?? EOT) $ enableTabs $ fullscreenFull $ windowNavigation $ boringWindows $ smartBorders . avoidStruts $ (tiled ||| Mirror (tiled) ||| Full)
+myLayouts         = mkToggle (NOBORDERS ?? EOT) $ enableTabs $ fullscreenFull $
+                    windowNavigation $ boringWindows $ smartBorders . avoidStruts $
+                    (tiled ||| Mirror (tiled) ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
                        enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
