@@ -1,5 +1,7 @@
 #!/bin/bash
 # xrandr wrapper for removing an external monitor
 
-xrandr --output eDP1 --mode 1600x900 --primary
+INT_PORT=eDP1
+
+xrandr --output ${1:-$INT_PORT} --auto --primary
 

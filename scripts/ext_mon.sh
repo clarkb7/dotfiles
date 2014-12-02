@@ -1,13 +1,16 @@
 #!/bin/bash
 # xrandr wrapper for adding an external monitor
 
-EXPECTED_ARGS=2
+EXPECTED_ARGS=1
 E_BADARGS=65
+INT_PORT=eDP1
+DEF_POS=--left-of
 
-if [ $# -ne $EXPECTED_ARGS ]
+if [ $# -lt $EXPECTED_ARGS ]
 then
-  echo "Usage: `basename $0` PORT RESOLUTION"
+  echo "Usage: `basename $0` PORT [POS] [INT_PORT]"
   exit $E_BADARGS
 fi
-xrandr --output $1 --primary --left-of eDP1 --mode $2
+
+xrandr --output $1 --primary --auto ${2:-$DEF_POS} ${3:-$INT_PORT}
 
