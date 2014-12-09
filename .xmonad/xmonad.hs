@@ -26,6 +26,7 @@ import XMonad.Layout.Simplest
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
+import XMonad.Layout.WorkspaceDir
 
 main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 
@@ -63,7 +64,7 @@ myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
                     manageHook defaultConfig
 myLayouts         = mkToggle (NOBORDERS ?? EOT) $ enableTabs $ fullscreenFull $
                     windowNavigation $ boringWindows $ smartBorders . avoidStruts $
-                    (tiled ||| Mirror (tiled) ||| Full)
+                    workspaceDir "~" (tiled ||| Mirror (tiled) ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
                        enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
@@ -94,6 +95,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask .|. controlMask, xK_p), swapTo Prev)
            , ((modMask .|. controlMask, xK_n), swapTo Next)
            , ((modMask .|. shiftMask, xK_b), sendMessage $ Toggle NOBORDERS)
+           , ((modMask .|. controlMask, xK_w), changeDir defaultXPConfig)
            -- Shortcuts
            , ((modMask .|. shiftMask, xK_h),
               spawn "feh --scale ~/Pictures/KB_United_States_Dvorak.svg.png")
