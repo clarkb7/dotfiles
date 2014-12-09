@@ -1,5 +1,6 @@
 -- XMonad imports
 import XMonad
+import XMonad.Prompt
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import Graphics.X11.ExtraTypes.XF86
@@ -7,6 +8,8 @@ import XMonad.Util.EZConfig
 import XMonad.Util.Themes
 import XMonad.Actions.CycleWS
 import XMonad.Actions.SpawnOn
+import XMonad.Actions.WorkspaceNames
+import XMonad.Actions.DynamicWorkspaces as DW
 -- Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -85,6 +88,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask, xK_j), focusDown)
            , ((modMask, xK_k), focusUp)
            -- Workspace controls
+           , ((modMask .|. controlMask, xK_r), DW.renameWorkspace defaultXPConfig)
+           , ((modMask .|. controlMask, xK_c), DW.addWorkspacePrompt defaultXPConfig)
+           , ((modMask .|. controlMask, xK_x), DW.removeWorkspace)
+           , ((modMask .|. controlMask, xK_p), swapTo Prev)
+           , ((modMask .|. controlMask, xK_n), swapTo Next)
            , ((modMask .|. shiftMask, xK_b), sendMessage $ Toggle NOBORDERS)
            -- Shortcuts
            , ((modMask .|. shiftMask, xK_h),
