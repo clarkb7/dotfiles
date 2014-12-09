@@ -1,15 +1,15 @@
 -- XMonad imports
 import XMonad
 import XMonad.Prompt
-import qualified Data.Map as M
 import qualified XMonad.StackSet as W
-import Graphics.X11.ExtraTypes.XF86
 import XMonad.Util.EZConfig
 import XMonad.Util.Themes
+import XMonad.Util.WorkspaceCompare
 import XMonad.Actions.CycleWS
 import XMonad.Actions.SpawnOn
 import XMonad.Actions.WorkspaceNames
 import XMonad.Actions.DynamicWorkspaces as DW
+import XMonad.Actions.CycleWS
 -- Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -27,12 +27,18 @@ import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.WorkspaceDir
+-- Utilities
+import qualified Data.Map as M
+import Graphics.X11.ExtraTypes.XF86
+import Data.Monoid
+import Data.Function
 
 main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 
 myBar = "xmobar"
 
-myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
+myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "", ppVisible = wrap "<" ">",
+                 ppSort =  mkWsSort getWsCompareLast}
 
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
@@ -92,8 +98,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask .|. controlMask, xK_r), DW.renameWorkspace defaultXPConfig)
            , ((modMask .|. controlMask, xK_c), DW.addWorkspacePrompt defaultXPConfig)
            , ((modMask .|. controlMask, xK_x), DW.removeWorkspace)
-           , ((modMask .|. controlMask, xK_p), swapTo Prev)
-           , ((modMask .|. controlMask, xK_n), swapTo Next)
+           , ((modMask .|. controlMask, xK_p), prevWS)
+           , ((modMask .|. controlMask, xK_n), nextWS)
+           , ((modMask .|. shiftMask .|. controlMask, xK_p), swapTo Prev)
+           , ((modMask .|. shiftMask .|. controlMask, xK_n), swapTo Next)
            , ((modMask .|. shiftMask, xK_b), sendMessage $ Toggle NOBORDERS)
            , ((modMask .|. controlMask, xK_w), changeDir defaultXPConfig)
            -- Shortcuts
@@ -104,3 +112,22 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask .|. shiftMask, xK_l), spawn "xscreensaver-command --lock")
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
+
+-- Custom functions and utils
+----
+-- http://marc.info/?l=xmonad&m=134139011504682
+-- | Compare Maybe's differently, so Nothing (i.e. workspaces without indexes)
+--   come last in the order
+indexCompare :: Maybe Int -> Maybe Int -> Ordering
+indexCompare Nothing Nothing = EQ
+indexCompare Nothing (Just _) = GT
+indexCompare (Just _) Nothing = LT
+indexCompare a b = compare a b
+
+-- | A comparison function for WorkspaceId, based on the index of the
+--   tags in the user's config.
+getWsCompareLast :: X WorkspaceCompare
+getWsCompareLast = do
+    wsIndex <- getWsIndex
+    return $ mconcat [indexCompare `on` wsIndex, compare]
+----
