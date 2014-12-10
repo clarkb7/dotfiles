@@ -5,9 +5,9 @@ import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig
 import XMonad.Util.Themes
 import XMonad.Util.WorkspaceCompare
+import XMonad.Util.Run
 import XMonad.Actions.CycleWS
-import XMonad.Actions.SpawnOn
-import XMonad.Actions.WorkspaceNames
+import XMonad.Actions.WorkspaceNames as WN
 import XMonad.Actions.DynamicWorkspaces as DW
 import XMonad.Actions.CycleWS
 -- Hooks
@@ -33,20 +33,18 @@ import Graphics.X11.ExtraTypes.XF86
 import Data.Monoid
 import Data.Function
 
-main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
-
-myBar = "xmobar"
+main = do
+    myStatusBar <- spawnPipe "xmobar ~/.xmobarrc"
+    let oPP = myPP { ppOutput = hPutStrLn myStatusBar }
+    xmonad $ myConfig { logHook = workspaceNamesPP oPP >>= dynamicLogWithPP}
 
 myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "", ppVisible = wrap "<" ">",
                  ppSort =  mkWsSort getWsCompareLast}
-
-toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
 myConfig = defaultConfig
     { terminal        = myTerminal,
       modMask         = myModMask,
       borderWidth     = myBorderWidth,
-      logHook         = dynamicLogWithPP myPP,
       handleEventHook = myHandleEventHook,
       manageHook      = myManageHook,
       layoutHook      = myLayouts,
@@ -77,7 +75,7 @@ myLayouts         = mkToggle (NOBORDERS ?? EOT) $ enableTabs $ fullscreenFull $
 myTabTheme = (theme wfarrTheme)
     { activeColor         = "#4c4c4c"
     }
-myWorkspaces      = ["www", "irc", "VMs", "4", "5", "6", "7", "8", "9"]
+myWorkspaces      = map show [1..9]
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            [
            -- Resizable Tiles
@@ -95,7 +93,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask, xK_j), focusDown)
            , ((modMask, xK_k), focusUp)
            -- Workspace controls
-           , ((modMask .|. controlMask, xK_r), DW.renameWorkspace defaultXPConfig)
+           , ((modMask .|. controlMask, xK_r), WN.renameWorkspace defaultXPConfig)
            , ((modMask .|. controlMask, xK_c), DW.addWorkspacePrompt defaultXPConfig)
            , ((modMask .|. controlMask, xK_x), DW.removeWorkspace)
            , ((modMask .|. controlMask, xK_p), prevWS)
@@ -110,6 +108,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask .|. shiftMask, xK_slash),
               spawn "feh -B white --scale ~/Pictures/Xmbindings.png")
            , ((modMask .|. shiftMask, xK_l), spawn "xscreensaver-command --lock")
+           , ((modMask, xK_b), sendMessage ToggleStruts)
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
 
