@@ -1,16 +1,6 @@
 servers = (
   {
     address = "zncsrv";
-    chatnet = "chatnet";
-    port = "4443";
-    password = "clark/chatnet:";
-    use_ssl = "yes";
-    ssl_verify = "no";
-    ssl_cert = "~/.irssi/certs/clark.pem";
-    autoconnect = "yes";
-  },
-  {
-    address = "zncsrv";
     chatnet = "freenode";
     port = "4443";
     password = "clark/freenode:";
@@ -21,9 +11,9 @@ servers = (
   },
   {
     address = "zncsrv";
-    chatnet = "rpisec_ext";
+    chatnet = "rpisec";
     port = "4443";
-    password = "clark/RPISEC_EXT:";
+    password = "clark/RPISEC:";
     use_ssl = "yes";
     ssl_verify = "no";
     ssl_cert = "~/.irssi/certs/clark.pem";
@@ -44,8 +34,6 @@ servers = (
 chatnets = {
   RPISEC = { type = "IRC"; };
   freenode = { type = "IRC"; };
-  chatnet = { type = "IRC"; };
-  rpisec_ext = { type = "IRC"; };
   PANDA = { type = "IRC"; };
 };
 
@@ -218,13 +206,6 @@ statusbar = {
         barend = { priority = "100"; alignment = "right"; };
       };
     };
-    awl_1 = {
-      items = {
-        barstart = { priority = "100"; };
-        awl_1 = { };
-        barend = { priority = "100"; alignment = "right"; };
-      };
-    };
   };
 };
 settings = {
@@ -238,6 +219,7 @@ hilights = (
   { text = "clarkb7"; nick = "yes"; word = "yes"; }
 );
 logs = { };
+ignores = ( { level = "JOINS PARTS QUITS"; } );
 windows = {
   1 = { immortal = "yes"; name = "(status)"; level = "ALL"; };
   2 = {
@@ -255,8 +237,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#btt";
-        tag = "chatnet";
+        name = "#panda-re";
+        tag = "freenode";
       }
     );
   };
@@ -265,8 +247,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#rcos";
-        tag = "freenode";
+        name = "#internal";
+        tag = "RPISEC";
       }
     );
   };
@@ -275,42 +257,12 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#panda-re";
-        tag = "freenode";
+        name = "#rpisec";
+        tag = "RPISEC";
       }
     );
   };
   6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#internal";
-        tag = "rpisec_ext";
-      }
-    );
-  };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#rpisec";
-        tag = "rpisec_ext";
-      }
-    );
-  };
-  8 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#c1_proj_g1";
-        tag = "rpisec_ext";
-      }
-    );
-  };
-  9 = {
     items = (
       {
         type = "CHANNEL";
@@ -320,9 +272,9 @@ windows = {
       }
     );
   };
-  10 = { name = "hilight"; sticky = "yes"; };
+  7 = { name = "hilight"; sticky = "yes"; };
 };
 mainwindows = {
   1 = { first_line = "5"; lines = "54"; };
-  10 = { first_line = "1"; lines = "4"; };
+  7 = { first_line = "1"; lines = "4"; };
 };
