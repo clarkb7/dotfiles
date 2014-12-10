@@ -1,3 +1,4 @@
+script load nicklist
 nicklist screen
 ignore * joins
 ignore * parts
