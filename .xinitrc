@@ -4,7 +4,7 @@ sh ~/.xmobar_scripts/trayer.sh &
 xrdb -load ~/.Xresources
 # Background
 sh ~/.fehbg &
-xcompmgr -D5 -cf &
+xcompmgr -c &
 # justgetflux.com
 ~/AUR/xflux -z 12180
 # Screensaver
