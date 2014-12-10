@@ -48,10 +48,10 @@ sub notify {
 		 $summary,
 		 $message,
 		 ['Close', 'Close'],
-		 {0, 0, 0}, 
+		 {0, 0, 0},
 		 Irssi::settings_get_str('notify_time'));
 }
- 
+
 sub print_text_notify {
     my ($dest, $text, $stripped) = @_;
     my $server = $dest->{server};
@@ -63,7 +63,7 @@ sub print_text_notify {
 sub message_private_notify {
     my ($server, $msg, $nick, $address) = @_;
 
-    return if (!$server);
+    return if (!$server || Irssi::active_win()->get_active_name() eq $nick);
     notify($server, "PM from ".$nick, $msg);
 }
 
