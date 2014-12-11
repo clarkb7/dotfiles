@@ -14,6 +14,8 @@ import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.EwmhDesktops as ED
 -- Layouts
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.ResizableTile
@@ -36,9 +38,11 @@ import Data.Function
 main = do
     myStatusBar <- spawnPipe "xmobar ~/.xmobarrc"
     let oPP = myPP { ppOutput = hPutStrLn myStatusBar }
-    xmonad $ myConfig { logHook = workspaceNamesPP oPP >>= dynamicLogWithPP}
+    xmonad $ withUrgencyHook NoUrgencyHook $
+    myConfig { logHook = workspaceNamesPP oPP >>= dynamicLogWithPP}
 
-myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "", ppVisible = wrap "<" ">",
+myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "" . wrap "<" ">",
+                 ppUrgent = xmobarColor "red" "" . wrap "{" "}",
                  ppSort =  mkWsSort getWsCompareLast}
 
 myConfig = defaultConfig
@@ -62,7 +66,7 @@ myConfig = defaultConfig
 myTerminal        = "urxvt"
 myModMask         = mod4Mask
 myBorderWidth     = 3
-myHandleEventHook = fullscreenEventHook
+myHandleEventHook = ED.fullscreenEventHook
 myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
                     fullscreenManageHook <+> manageDocks <+> ( isFullscreen --> doFullFloat ) <+>
                     manageHook defaultConfig

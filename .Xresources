@@ -8,7 +8,7 @@ URxvt*.foreground: [100]#00FF00
 
 URxvt*.scrollBar: false
 URxvt*.color4: #0066FF
-
+URxvt*.urgentOnBell: true
 URxvt.perl-ext-common:          ...,font-size,...
 
 URxvt.keysym.Control-Up:            perl:font-size:increase
