@@ -74,10 +74,6 @@
 (setq org-log-done 'time)
 (setq org-checkbox-hierarchical-statistics t)
 
-;; salsa
-(add-to-list 'load-path "~/.emacs.d/modes")
-(require 'salsa-mode)
-
 ;;cmake-mode
 (require 'cmake-mode)
 
