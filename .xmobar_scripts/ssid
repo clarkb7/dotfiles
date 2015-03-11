@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Gets wireless SSID
+SSID=`wpa_cli status | grep ^ssid | cut -d'=' -f2`
+echo "$SSID "

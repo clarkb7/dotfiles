@@ -1,10 +1,11 @@
 Config { font = "xft:DejaVuMono:size=9",
-         position = TopW L 97,
+         position = TopW L 96,
          commands = [
            Run Weather "KALB" ["-t", "Temp: <tempF>F",
                                "-L", "32", "-H", "80",
                                "-l", "lightblue", "-n", "green", "-h", "red"] 36000,
-           Run Network "wlp3s0" ["-L","0","-H","32","--normal","green","--high","red"] 10,
+           Run DynNetwork ["-L","0","-H","32","--normal","green","--high","red"] 10,
+           Run Com "/home/branden/.xmobar_scripts/ssid" [] "ssid" 60,
            Run Cpu ["-t", "CPU: <total>%",
                     "-L","3","-H","50","--normal","green","--high","red"] 10,
            Run Memory ["-t","Mem: <usedratio>%"] 10,
@@ -24,6 +25,6 @@ Config { font = "xft:DejaVuMono:size=9",
          ],
          sepChar = "%",
          alignSep = "}{",
-         template = "%StdinReader% } %cpu% * %coretemp% | %memory% | %wlp3s0% | %bright% { %battery% * Vol: %volume% * <fc=#FF0000>%date%</fc> * %KALB%"
+         template = "%StdinReader% } %cpu% * %coretemp% | %memory% | %dynnetwork% %ssid%| %bright% { %battery% * Vol: %volume% * <fc=#FF0000>%date%</fc> * %KALB%"
        }
 
