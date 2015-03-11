@@ -109,6 +109,3 @@ alias ssh='TERM=xterm-256color ssh'
 bindkey -s "\e[25~" ""
 # zsh command syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Mozart crap
-export OZHOME=/home/branden/AUR/oz
-export PATH=$PATH:$OZHOME/bin
