@@ -38,8 +38,8 @@ import Data.Function
 main = do
     myStatusBar <- spawnPipe "xmobar ~/.xmobarrc"
     let oPP = myPP { ppOutput = hPutStrLn myStatusBar }
-    xmonad $ withUrgencyHook NoUrgencyHook $
-    myConfig { logHook = workspaceNamesPP oPP >>= dynamicLogWithPP}
+    xmonad $ withUrgencyHook NoUrgencyHook $ myConfig
+        { logHook = workspaceNamesPP oPP >>= dynamicLogWithPP}
 
 myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "" . wrap "<" ">",
                  ppUrgent = xmobarColor "red" "" . wrap "{" "}",
@@ -60,7 +60,8 @@ myConfig = defaultConfig
     ,("<XF86MonBrightnessDown>", spawn "xbacklight -20")
     ,("<XF86AudioRaiseVolume>", spawn "amixer -c0 set Master 5+ unmute")
     ,("<XF86AudioLowerVolume>", spawn "amixer -c0 set Master 5- unmute")
-    ,("<XF86AudioMute>", spawn "amixer -c0 set Master toggle")
+    ,("<XF86AudioMute>", spawn
+        "for i in {Master,Headphone,Speaker}; do amixer -c0 set $i toggle; done")
     ]
 
 myTerminal        = "urxvt"
