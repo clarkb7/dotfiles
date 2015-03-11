@@ -10,5 +10,6 @@ git_custom_status() {
     echo "$(parse_git_dirty)%{$fg_bold[yellow]%}$(work_in_progress)%{$reset_color%}$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
   fi
 }
+RPS1='$(git_custom_status) $EPS1'
 
 PROMPT='%(!.%{$fg[red]%}.)[%m]%{$fg[cyan]%}[%c]% %(?.%{$reset_color%}.%{$fg[red]%})% %(!.#.$) %{$reset_color%}'
