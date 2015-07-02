@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 -- XMonad imports
 import XMonad
 import XMonad.Prompt
@@ -9,7 +10,6 @@ import XMonad.Util.Run
 import XMonad.Actions.CycleWS
 import XMonad.Actions.WorkspaceNames as WN
 import XMonad.Actions.DynamicWorkspaces as DW
-import XMonad.Actions.CycleWS
 -- Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -27,42 +27,19 @@ import XMonad.Layout.BoringWindows
 import XMonad.Layout.Simplest
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.NoBorders
 import XMonad.Layout.WorkspaceDir
 -- Utilities
 import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
-import Data.Monoid
 import Data.Function
 
-main = do
-    myStatusBar <- spawnPipe "xmobar ~/.xmobarrc"
-    let oPP = myPP { ppOutput = hPutStrLn myStatusBar }
-    xmonad $ withUrgencyHook NoUrgencyHook $ myConfig
-        { logHook = workspaceNamesPP oPP >>= dynamicLogWithPP}
-
-myPP = xmobarPP {ppCurrent = xmobarColor "#429942" "" . wrap "<" ">",
-                 ppUrgent = xmobarColor "red" "" . wrap "{" "}",
-                 ppSort =  mkWsSort getWsCompareLast}
-
-myConfig = defaultConfig
-    { terminal        = myTerminal,
-      modMask         = myModMask,
-      borderWidth     = myBorderWidth,
-      handleEventHook = myHandleEventHook,
-      manageHook      = myManageHook,
-      layoutHook      = myLayouts,
-      workspaces      = myWorkspaces,
-      keys            = newKeys
-    }
-    `additionalKeysP`
-    [("<XF86MonBrightnessUp>", spawn "xbacklight +20")
-    ,("<XF86MonBrightnessDown>", spawn "xbacklight -20")
-    ,("<XF86AudioRaiseVolume>", spawn "amixer -c0 set Master 5+ unmute")
-    ,("<XF86AudioLowerVolume>", spawn "amixer -c0 set Master 5- unmute")
-    ,("<XF86AudioMute>", spawn
-        "for i in {Master,Headphone,Speaker}; do amixer -c0 set $i toggle; done")
-    ]
+myPP h = xmobarPP
+             {
+               ppCurrent = xmobarColor "#429942" "" . wrap "<" ">",
+               ppUrgent = xmobarColor "red" "" . wrap "{" "}",
+               ppSort =  mkWsSort getWsCompareLast,
+               ppOutput = hPutStrLn h
+             }
 
 myTerminal        = "urxvt"
 myModMask         = mod4Mask
@@ -116,6 +93,28 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask, xK_b), sendMessage ToggleStruts)
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
+
+main = do
+    din <- spawnPipe "xmobar ~/.xmobarrc"
+    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
+        { terminal        = myTerminal,
+          modMask         = myModMask,
+          borderWidth     = myBorderWidth,
+          handleEventHook = myHandleEventHook,
+          manageHook      = myManageHook,
+          layoutHook      = myLayouts,
+          workspaces      = myWorkspaces,
+          keys            = newKeys,
+          logHook         = workspaceNamesPP (myPP din) >>= dynamicLogWithPP
+        }
+        `additionalKeysP`
+        [("<XF86MonBrightnessUp>", spawn "xbacklight +20")
+        ,("<XF86MonBrightnessDown>", spawn "xbacklight -20")
+        ,("<XF86AudioRaiseVolume>", spawn "amixer -c0 set Master 5+ unmute")
+        ,("<XF86AudioLowerVolume>", spawn "amixer -c0 set Master 5- unmute")
+        ,("<XF86AudioMute>", spawn
+            "for i in {Master,Headphone,Speaker}; do amixer -c0 set $i toggle; done")
+        ]
 
 -- Custom functions and utils
 ----
