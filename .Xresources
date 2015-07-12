@@ -2,9 +2,7 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 URxvt*.depth: 32
-URxvt*.background: [60]#000000
 URxvt*.font: xft:DejaVu Sans Mono:size=9
-URxvt*.foreground: [100]#00FF00
 
 URxvt*.scrollBar: false
 URxvt*.color4: #0066FF
@@ -46,3 +44,31 @@ xscreensaver.passwd.thermometer.background:  #000000
 xscreensaver.passwd.thermometer.width:       8
 !datestamp format--see the strftime(3) manual page for details
 xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
+
+! Color configuration -------------------------------------------------------
+! Background color
+URxvt*background: black
+
+! Font color
+URxvt*foreground: white
+
+! Other colors
+URxvt*color0: black
+URxvt*color1: red3
+URxvt*color2: green3
+URxvt*color3: yellow3
+URxvt*color4: blue2
+URxvt*color5: magenta3
+URxvt*color6: cyan3
+URxvt*color7: gray90
+URxvt*color8: grey50
+URxvt*color9: red
+URxvt*color10: green
+URxvt*color11: yellow
+URxvt*color12: blue
+URxvt*color13: magenta
+URxvt*color14: cyan
+URxvt*color15: white
+
+URxvt*.background: [60]#000000
+URxvt*.foreground: [100]#00FF00

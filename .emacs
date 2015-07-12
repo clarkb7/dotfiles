@@ -68,7 +68,7 @@
 
 ;; perspective
 (require 'perspective)
-(persp-mode)
+;; (persp-mode)
 
 ;; org mode
 (setq org-log-done 'time)
@@ -86,7 +86,7 @@
 (setq compilation-window-height 12)
 (global-linum-mode 1)
 (setq-default indent-tabs-mode nil)
-(setq default-tab-width 2)
+(setq default-tab-width 4)
 (setq show-trailing-whitespace t)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
