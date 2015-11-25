@@ -7,13 +7,18 @@ URxvt*.font: xft:DejaVu Sans Mono:size=9
 URxvt*.scrollBar: false
 URxvt*.color4: #0066FF
 URxvt*.urgentOnBell: true
-URxvt.perl-ext-common:          ...,font-size,...
+
+URxvt.perl-ext-common:          ...,font-size,matcher,...
+
+URxvt*url-launcher:               /usr/bin/chromium
+URxvt*matcher.button:            1
 
 URxvt.keysym.Control-Up:            perl:font-size:increase
 URxvt.keysym.Control-Down:          perl:font-size:decrease
 URxvt.keysym.Control-Shift-Up:      perl:font-size:incglobal
 URxvt.keysym.Control-Shift-Down:    perl:font-size:decglobal
 URxvt.keysym.Control-Shift-Escape:  perl:font-size:reset
+
 
 ! xscreensaver ---------------------------------------------------------------
 
