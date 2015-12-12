@@ -1,8 +1,17 @@
+# Config bottom line
 caption always
-altscreen on
 hardstatus string "screen (%n: %t)"
 termcapinfo xterm* ti@:te@
 caption string "%{= kw}%{G}[%{-}Slate%{G}][%{-}%=%?%-Lw%?%50>%{+b}%{R}%{G}[%{-} %n%f %t %{G}]%{-}%{-}%{-b}%?%+Lw%? %=%{G}][ %{= b}%m/%d%{-}%{-} %c%{G}]%{-}%<"
+# Don't put stuff like vim in screen scrollback
+altscreen on
+# Don't display startup message
 startup_message off
-term rxvt-unicode-256color
+# Set terminal type
+term screen-256color
+# Disable vbell
 vbell off
+# Set F13 as a command key
+bindkey -k F3 command
+# Set command key to ctrl-o to keep it out of the way
+escape o
