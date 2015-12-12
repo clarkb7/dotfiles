@@ -17,7 +17,6 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.EwmhDesktops as ED
 -- Layouts
-import XMonad.Layout.Fullscreen
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.NoBorders
 import XMonad.Layout.SubLayouts
@@ -46,9 +45,8 @@ myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = ED.fullscreenEventHook
 myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
-                    fullscreenManageHook <+> manageDocks <+> ( isFullscreen --> doFullFloat ) <+>
-                    manageHook defaultConfig
-myLayouts         = mkToggle (NOBORDERS ?? EOT) $ enableTabs $ fullscreenFull $
+                    manageDocks <+> manageHook defaultConfig
+myLayouts         = mkToggle (NOBORDERS ?? EOT) $ trackFloating $ enableTabs $
                     windowNavigation $ boringWindows $ smartBorders . avoidStruts $
                     workspaceDir "~" (tiled ||| Mirror (tiled) ||| Full)
                      where
@@ -96,7 +94,7 @@ newKeys x = myKeys x `M.union` keys defaultConfig x
 
 main = do
     din <- spawnPipe "xmobar ~/.xmobarrc"
-    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
+    xmonad $ ewmh $ withUrgencyHook NoUrgencyHook $ defaultConfig
         { terminal        = myTerminal,
           modMask         = myModMask,
           borderWidth     = myBorderWidth,
