@@ -27,6 +27,7 @@ import XMonad.Layout.Simplest
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.WorkspaceDir
+import XMonad.Layout.TrackFloating
 -- Utilities
 import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
