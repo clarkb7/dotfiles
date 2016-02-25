@@ -652,8 +652,8 @@ sub _calculate_items {
 	}
 
 	$display = "$display%n";
-	my $num_ent = (' 'x($numPad - length $number)) . $number;
-	my $key_ent = exists $keymap{$number} ? ((' 'x($keyPad - length $keymap{$number})) . $keymap{$number}) : ' 'x$keyPad;
+	my $num_ent = (' 'x($numPad > length $number ? $numPad - length $number : 0)) . $number;
+	my $key_ent = exists $keymap{$number} ? ((' 'x($keyPad > length $keymap{$number} ? $keyPad - length $keymap{$number} : 0)) . $keymap{$number}) : ' 'x$keyPad;
 	if ($VIEWER_MODE or $S{sbar_maxlen} or $S{block} < 0) {
 	    my $baseLength = sb_length(_format_display(
 		'', $display, '', $hilight,

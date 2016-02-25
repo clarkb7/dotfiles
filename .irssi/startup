@@ -1,6 +1,30 @@
-script load nicklist
-nicklist screen
+# script load nicklist
+# nicklist screen
+script load tmux-nicklist-portable
 ignore * joins
 ignore * parts
 ignore * quits
 
+# additional bindings
+bind -delete meta-a
+bind -delete meta-s
+bind -delete meta-d
+bind -delete meta-f
+bind -delete meta-g
+bind -delete meta-h
+bind -delete meta-j
+bind -delete meta-k
+bind -delete meta-l
+bind -delete meta-;
+bind -delete meta-'
+bind meta-a change_window 20
+bind meta-s change_window 21
+bind meta-d change_window 22
+bind meta-f change_window 23
+bind meta-g change_window 24
+bind meta-h change_window 25
+bind meta-j change_window 26
+bind meta-k change_window 27
+bind meta-l change_window 28
+bind meta-; change_window 39
+bind meta-' change_window 30

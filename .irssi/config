@@ -206,17 +206,25 @@ statusbar = {
         barend = { priority = "100"; alignment = "right"; };
       };
     };
+    awl_1 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_1 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 settings = {
   core = { real_name = "clark"; user_name = "clark"; nick = "clark"; };
-  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-text" = { actlist_sort = "refnum"; colors_ansi_24bit = "yes"; };
   "fe-common/core" = {
     theme = "xchat";
     bell_beeps = "yes";
     beep_msg_level = "MSGS NOTICES INVITES DCC DCCMSGS HILIGHT";
+    term_charset = "utf-8";
   };
-  "perl/core/scripts" = { awl_viewer = "no"; };
+  "perl/core/scripts" = { awl_viewer = "no"; nicklist_color = "yes"; };
 };
 hilights = (
   { text = "clark"; nick = "yes"; word = "yes"; },
@@ -282,3 +290,16 @@ mainwindows = {
   1 = { first_line = "5"; lines = "54"; };
   7 = { first_line = "1"; lines = "4"; };
 };
+keyboard = (
+  { key = "meta-p"; id = "change_window"; data = "20"; },
+  { key = "meta-a"; id = "change_window"; data = "20"; },
+  { key = "meta-s"; id = "change_window"; data = "21"; },
+  { key = "meta-d"; id = "change_window"; data = "22"; },
+  { key = "meta-f"; id = "change_window"; data = "23"; },
+  { key = "meta-g"; id = "change_window"; data = "24"; },
+  { key = "meta-h"; id = "change_window"; data = "25"; },
+  { key = "meta-j"; id = "change_window"; data = "26"; },
+  { key = "meta-k"; id = "change_window"; data = "27"; },
+  { key = "meta-l"; id = "change_window"; data = "28"; },
+  { key = "meta-'"; id = "change_window"; data = "30"; }
+);
