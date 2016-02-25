@@ -41,7 +41,7 @@ myPP h = xmobarPP
                ppOutput = hPutStrLn h
              }
 
-myTerminal        = "urxvt"
+myTerminal        = "st"
 myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = ED.fullscreenEventHook
