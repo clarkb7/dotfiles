@@ -49,7 +49,7 @@ myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
                     manageDocks <+> manageHook defaultConfig
 myLayouts         = mkToggle (NOBORDERS ?? EOT) $ trackFloating $ enableTabs $
                     windowNavigation $ boringWindows $ smartBorders . avoidStruts $
-                    workspaceDir "~" (tiled ||| Mirror (tiled) ||| Full)
+                    workspaceDir "~" (tiled ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
                        enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
