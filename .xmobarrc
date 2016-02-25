@@ -1,5 +1,5 @@
-Config { font = "xft:DejaVuMono:size=9",
-         position = TopW L 96,
+Config { font = "xft:DejaVuSans:pixelsize=13",
+         position = TopW L 95,
          commands = [
            Run Weather "KALB" ["-t", "Temp: <tempF>F",
                                "-L", "32", "-H", "80",
