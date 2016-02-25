@@ -32,6 +32,7 @@ import XMonad.Layout.TrackFloating
 import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
 import Data.Function
+import XMonad.Util.XSelection (safePromptSelection)
 
 myPP h = xmobarPP
              {
@@ -90,6 +91,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
               spawn "feh -B white --scale ~/Pictures/Xmbindings.png")
            , ((modMask .|. shiftMask, xK_l), spawn "slimlock")
            , ((modMask, xK_b), sendMessage ToggleStruts)
+           , ((modMask .|. shiftMask, xK_r), spawn "~/scripts/reset_env.sh")
+           , ((modMask, xK_o), safePromptSelection "xdg-open")
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
 
