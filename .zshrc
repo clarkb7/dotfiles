@@ -109,3 +109,28 @@ alias ssh='TERM=xterm-256color ssh'
 bindkey -s "\e[25~" ""
 # zsh command syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Vagrant shortcuts
+function vagrant_boxcmd
+{
+    if [[ -z $1 || -z $2 || -z $3 ]]; then
+        echo "Usage: vagrant_box_cmd BOXPATH BOXCMD BOXNAME"
+        return
+    fi
+    BOXPATH="$1"
+    BOXCMD="$2"
+    BOXNAME="$3"
+    cd "$BOXPATH"
+    vagrant "$BOXCMD" "$BOXNAME"
+    cd -
+}
+UPWN_PATH=~/git/internal_tools/vm/upwn
+function upwn86
+{
+    if [[ -z $1 ]]; then echo "Usage: $0 BOXCMD"; return; fi
+    vagrant_boxcmd "$UPWN_PATH" "$1" upwn86
+}
+function upwn64
+{
+    if [[ -z $1 ]]; then echo "Usage: $0 BOXCMD"; return; fi
+    vagrant_boxcmd "$UPWN_PATH" "$1" upwn64
+}
