@@ -88,7 +88,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
               spawn "feh --scale ~/Pictures/KB_United_States_Dvorak.svg.png")
            , ((modMask .|. shiftMask, xK_slash),
               spawn "feh -B white --scale ~/Pictures/Xmbindings.png")
-           , ((modMask .|. shiftMask, xK_l), spawn "xscreensaver-command --lock")
+           , ((modMask .|. shiftMask, xK_l), spawn "slimlock")
            , ((modMask, xK_b), sendMessage ToggleStruts)
            ]
 newKeys x = myKeys x `M.union` keys defaultConfig x
