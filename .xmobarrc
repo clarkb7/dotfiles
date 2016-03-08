@@ -21,10 +21,11 @@ Config { font = "xft:DejaVuSans:pixelsize=13",
                          "--", "-O", "Charging", "-o", "Bat: <left>% / <timeleft>", "-i", "Charged",
                          "-L", "-15", "-H", "-5"] 600,
            Run Com "/home/branden/.xmobar_scripts/brightness" [] "bright" 60,
-           Run Com "/home/branden/.xmobar_scripts/volume" [] "volume" 10
+           Run Com "/home/branden/.xmobar_scripts/volume" [] "volume" 10,
+           Run UnsafeStdinReader
          ],
          sepChar = "%",
          alignSep = "}{",
-         template = "%StdinReader% } %cpu% * %coretemp% | %memory% | %dynnetwork% %ssid%| %bright% { %battery% * Vol: %volume% * <fc=#FF0000>%date%</fc> * %KALB%"
+         template = "%UnsafeStdinReader% } %cpu% * %coretemp% | %memory% | %dynnetwork% %ssid%| %bright% { %battery% * <action=pavucontrol>Vol: %volume%</action> * <action=xdg-open https://calendar.google.com><fc=#FF0000>%date%</fc></action> * <action=xdg-open https://www.google.com/search?q=weather>%KALB%</action>"
        }
 

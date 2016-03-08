@@ -46,7 +46,8 @@ myTerminal        = "st"
 myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = ED.fullscreenEventHook
-myManageHook      = composeAll [ className =? "feh" --> doCenterFloat ] <+>
+myManageHook      = composeAll [ className =? "feh" --> doCenterFloat,
+                                 title =? "Volume Control" --> doCenterFloat ] <+>
                     manageDocks <+> manageHook defaultConfig
 myLayouts         = mkToggle (NOBORDERS ?? EOT) $ trackFloating $ enableTabs $
                     windowNavigation $ boringWindows $ smartBorders . avoidStruts $
@@ -57,7 +58,9 @@ myLayouts         = mkToggle (NOBORDERS ?? EOT) $ trackFloating $ enableTabs $
 myTabTheme = (theme wfarrTheme)
     { activeColor         = "#4c4c4c"
     }
-myWorkspaces      = map show [1..9]
+myWorkspaces      = (map clickable) $ map show [1..9]
+    where
+        clickable l = "<action=xdotool key super+" ++ l ++ ">" ++ l ++ "</action>"
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            [
            -- Resizable Tiles
