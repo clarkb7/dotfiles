@@ -42,7 +42,7 @@ myPP h = xmobarPP
                ppOutput = hPutStrLn h
              }
 
-myTerminal        = "st"
+myTerminal        = "st tmux"
 myModMask         = mod4Mask
 myBorderWidth     = 3
 myHandleEventHook = ED.fullscreenEventHook
@@ -58,9 +58,9 @@ myLayouts         = mkToggle (NOBORDERS ?? EOT) $ trackFloating $ enableTabs $
 myTabTheme = (theme wfarrTheme)
     { activeColor         = "#4c4c4c"
     }
-myWorkspaces      = (map clickable) $ map show [1..9]
-    where
-        clickable l = "<action=xdotool key super+" ++ l ++ ">" ++ l ++ "</action>"
+clickableWS l = "<action=xdotool key super+" ++ l ++ ">" ++ l ++ "</action>"
+myExtraWorkspaces = (map (clickableWS . ("F" ++) . show) [1..9])
+myWorkspaces      = ((map clickableWS) $ (map show [1..9]))++myExtraWorkspaces
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            [
            -- Resizable Tiles
@@ -96,7 +96,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask, xK_b), sendMessage ToggleStruts)
            , ((modMask .|. shiftMask, xK_r), spawn "~/scripts/reset_env.sh")
            , ((modMask, xK_o), safePromptSelection "xdg-open")
+           ] ++ [
+             ((modMask, key), (windows $ W.greedyView ws)) 
+             | (key,ws) <- zip myExtraWorkspaceKeys myExtraWorkspaces
+           ] ++ [
+             ((modMask .|. shiftMask, key), (windows $ W.shift ws))
+             | (key,ws) <- zip myExtraWorkspaceKeys myExtraWorkspaces
            ]
+           where myExtraWorkspaceKeys = [xK_F1..xK_F9]
 newKeys x = myKeys x `M.union` keys defaultConfig x
 
 main = do
@@ -115,10 +122,10 @@ main = do
         `additionalKeysP`
         [("<XF86MonBrightnessUp>", spawn "xbacklight +20")
         ,("<XF86MonBrightnessDown>", spawn "xbacklight -20")
-        ,("<XF86AudioRaiseVolume>", spawn "amixer -c0 set Master 5+ unmute")
-        ,("<XF86AudioLowerVolume>", spawn "amixer -c0 set Master 5- unmute")
+        ,("<XF86AudioRaiseVolume>", spawn "amixer -c1 set Master 5+ unmute")
+        ,("<XF86AudioLowerVolume>", spawn "amixer -c1 set Master 5- unmute")
         ,("<XF86AudioMute>", spawn
-            "for i in {Master,Headphone,Speaker}; do amixer -c0 set $i toggle; done")
+            "for i in {Master,Headphone,Speaker}; do amixer -c1 set $i toggle; done")
         ]
 
 -- Custom functions and utils
