@@ -80,6 +80,12 @@
 ;;latex-preview-pane
 (require 'latex-preview-pane)
 
+;;column marker/ruler
+(require 'fill-column-indicator)
+(set 'fci-rule-column 90)
+(define-globalized-minor-mode my-global-fci-mode fci-mode turn-on-fci-mode)
+(my-global-fci-mode 1)
+
 ;; emacs stuff
 (electric-pair-mode 1)
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -87,6 +93,7 @@
 (global-linum-mode 1)
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 4)
+(setq-default c-basic-offset 4)
 (setq show-trailing-whitespace t)
 (show-paren-mode 1)
 (setq show-paren-delay 0)
