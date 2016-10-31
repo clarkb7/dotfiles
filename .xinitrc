@@ -6,16 +6,20 @@ xrdb -load ~/.Xresources
 sh ~/.fehbg &
 xcompmgr -c &
 # justgetflux.com
-~/AUR/xflux -z 12180
+xflux -z 12180
 # Screensaver
 /usr/bin/xscreensaver -no-splash &
 # Cloud
-dropboxd &
+#dropbox &
 /usr/bin/megasync &
 # New key bindings
 setxkbmap -model pc104 -layout us,us -variant ,dvorak -option grp:alt_shift_toggle
 xmodmap ~/.Xmodmap &
 # Notification menu
 /usr/bin/dunst -follow mouse -config ~/.dunstrc &
+# Synergy
+#synergy &
+# Clipboard
+autocutsel -fork &
 # Yay!
 exec xmonad
