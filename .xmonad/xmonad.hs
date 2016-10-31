@@ -104,6 +104,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
              | (key,ws) <- zip myExtraWorkspaceKeys myExtraWorkspaces
            ]
            where myExtraWorkspaceKeys = [xK_F1..xK_F9]
+
 newKeys x = myKeys x `M.union` keys defaultConfig x
 
 main = do
@@ -126,6 +127,10 @@ main = do
         ,("<XF86AudioLowerVolume>", spawn "amixer -c1 set Master 5- unmute")
         ,("<XF86AudioMute>", spawn
             "for i in {Master,Headphone,Speaker}; do amixer -c1 set $i toggle; done")
+        ,("<XF86AudioPlay>", spawn "playerctl play-pause")
+        ,("<XF86AudioNext>", spawn "playerctl next")
+        ,("<XF86AudioPrev>", spawn "playerctl previous")
+        ,("<XF86AudioStop>", spawn "playerctl stop")
         ]
 
 -- Custom functions and utils
