@@ -1,4 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MultiParamTypeClasses, TypeSynonymInstances #-}
+
 -- XMonad imports
 import XMonad
 import XMonad.Prompt
@@ -49,12 +51,11 @@ myHandleEventHook = ED.fullscreenEventHook
 myManageHook      = composeAll [ className =? "feh" --> doCenterFloat,
                                  title =? "Volume Control" --> doCenterFloat ] <+>
                     manageDocks <+> manageHook defaultConfig
-myLayouts         = mkToggle (NOBORDERS ?? EOT) $ trackFloating $ enableTabs $
+myLayouts         = mkToggle (ENABLETABS ?? EOT) $ mkToggle (NOBORDERS ?? EOT) $ trackFloating $
                     windowNavigation $ boringWindows $ smartBorders . avoidStruts $
                     workspaceDir "~" (tiled ||| Full)
                      where
                        tiled = ResizableTall 1 (3/100) (1/2) []
-                       enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
 myTabTheme = (theme wfarrTheme)
     { activeColor         = "#4c4c4c"
     }
@@ -67,6 +68,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
              ((modMask,               xK_a), sendMessage MirrorExpand)
            , ((modMask,               xK_z), sendMessage MirrorShrink)
            -- Tabbed tiles
+           , ((modMask .|. controlMask, xK_t), sendMessage $ Toggle ENABLETABS)
            , ((modMask .|. controlMask, xK_h), sendMessage $ pullGroup L)
            , ((modMask .|. controlMask, xK_l), sendMessage $ pullGroup R)
            , ((modMask .|. controlMask, xK_k), sendMessage $ pullGroup U)
@@ -150,4 +152,10 @@ getWsCompareLast :: X WorkspaceCompare
 getWsCompareLast = do
     wsIndex <- getWsIndex
     return $ mconcat [indexCompare `on` wsIndex, compare]
+
+-- Transform layout modifier into a toggle-able
+enableTabs x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x
+data ENABLETABS = ENABLETABS deriving (Read, Show, Eq, Typeable)
+instance Transformer ENABLETABS Window where
+     transform ENABLETABS x k = k (enableTabs x) (const x)
 ----
