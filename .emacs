@@ -1,8 +1,8 @@
 (require 'package)
 (package-initialize)
-(push '("marmalade" . "http://marmalade-repo.org/packages/")
+(push '("marmalade" . "https://marmalade-repo.org/packages/")
       package-archives )
-(push '("melpa" . "http://melpa.milkbox.net/packages/")
+(push '("melpa" . "https://melpa.org/packages/")
       package-archives)
 (add-to-list 'load-path "/~/.emacs.d")
 (defvar my-packages '(color-theme color-theme-monokai haskell-mode
