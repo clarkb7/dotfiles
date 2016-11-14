@@ -9,7 +9,8 @@
                       powerline-evil auto-highlight-symbol auctex
                       popup auto-complete auto-complete-auctex
                       ac-math auto-complete-c-headers ac-python
-                      evil flycheck cmake-mode latex-preview-pane))
+                      evil flycheck cmake-mode latex-preview-pane
+                      magit evil-magit))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -87,6 +88,10 @@
 (set 'fci-rule-column 90)
 (define-globalized-minor-mode my-global-fci-mode fci-mode turn-on-fci-mode)
 (my-global-fci-mode 1)
+
+;;magit
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; emacs stuff
 (setq linum-format (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
