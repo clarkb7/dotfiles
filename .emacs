@@ -1,6 +1,6 @@
 (require 'package)
 (package-initialize)
-(push '("marmalade" . "https://marmalade-repo.org/packages/")
+(push '("marmalade" . "http://marmalade-repo.org/packages/")
       package-archives )
 (push '("melpa" . "https://melpa.org/packages/")
       package-archives)
