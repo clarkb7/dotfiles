@@ -98,6 +98,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
            , ((modMask, xK_b), sendMessage ToggleStruts)
            , ((modMask .|. shiftMask, xK_r), spawn "~/scripts/reset_env.sh")
            , ((modMask, xK_o), safePromptSelection "xdg-open")
+           , ((modMask .|. shiftMask, xK_p), spawn "passmenu --type")
            ] ++ [
              ((modMask, key), (windows $ W.greedyView ws)) 
              | (key,ws) <- zip myExtraWorkspaceKeys myExtraWorkspaces
