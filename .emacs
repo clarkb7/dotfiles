@@ -10,7 +10,7 @@
                       popup auto-complete auto-complete-auctex
                       ac-math auto-complete-c-headers ac-python
                       evil flycheck cmake-mode latex-preview-pane
-                      magit evil-magit))
+                      magit evil-magit evil-mc))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -93,6 +93,10 @@
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 (require 'evil-magit)
+
+;;multiple cursors
+(require 'evil-mc)
+(global-evil-mc-mode 1)
 
 ;; emacs stuff
 (setq linum-format (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
