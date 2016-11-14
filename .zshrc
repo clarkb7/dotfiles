@@ -102,8 +102,10 @@ man() {
     man "$@"
 }
 # emacs no window mode by default
-alias emacs='emacs -nw'
-# Fix TERM errors on ssh
+alias emacs='KONSOLE_DBUS_SESSION=1 emacs -nw'
+alias emacsclient='emacsclient -t -c'
+alias ec='emacsclient'
+# Fix TERM errors
 alias ssh='TERM=xterm-256color ssh'
 # Since caps_lock is bound to f13 now, quiet it.
 bindkey -s "\e[25~" ""

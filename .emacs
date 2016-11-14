@@ -69,7 +69,7 @@
 (setq flycheck-gcc-language-standard `"c++11")
 
 ;; perspective
-(require 'perspective)
+;;(require 'perspective)
 ;; (persp-mode)
 
 ;; org mode
@@ -89,6 +89,7 @@
 (my-global-fci-mode 1)
 
 ;; emacs stuff
+(setq linum-format (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
 (electric-pair-mode 1)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 (setq compilation-window-height 12)
@@ -101,7 +102,7 @@
 (setq show-paren-delay 0)
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
-(server-start)
+;;(server-start)
 (setq x-select-enable-clipboard t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; disable GUI menu

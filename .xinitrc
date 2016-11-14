@@ -21,5 +21,7 @@ xmodmap ~/.Xmodmap &
 #synergy &
 # Clipboard
 autocutsel -fork &
+# emacs daemon
+emacs --daemon
 # Yay!
 exec xmonad
