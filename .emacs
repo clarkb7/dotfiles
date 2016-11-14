@@ -30,6 +30,8 @@
 ;; Auctex
 (require 'tex)
 (TeX-global-PDF-mode t)
+(add-to-list 'TeX-view-program-list '("mupdf" "mupdf %o"))
+(setq TeX-view-program-selection '((output-pdf "mupdf")))
 ;; Autocomplete
 (require 'popup)
 (require 'auto-complete)
