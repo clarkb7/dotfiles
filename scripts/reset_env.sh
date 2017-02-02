@@ -9,7 +9,7 @@ function ask_mon {
 # Monitor selection
 function mon_sel {
     # Get layout type
-    MON=$(echo -e 'internal\nexternal\npresent\ntriple' | dmenu)
+    MON=$(echo -e 'internal\nexternal\npresent\nduo\ntriple' | dmenu)
     [ "$MON" == "" ] && return
     
     if [ "$MON" == "internal" ]; then
@@ -30,6 +30,13 @@ function mon_sel {
         RES=$(xrandr | grep -A999 "$INT_MON" | tail -n+2 | egrep -B100 -m1 '^[^ ]' | head -n-1 | cut -d' ' -f4 | dmenu)
         [ "$RES" == "" ] && return
         ~/scripts/present_mon.sh "$EXT" $RES
+    elif [ "$MON" == "duo" ]; then
+        # Get monitor names
+        LEFT=$(ask_mon "Left")
+        [ "$LEFT" == "" ] && return
+        RIGHT=$(ask_mon "Right")
+        [ "$RIGHT" == "" ] && return
+        ~/scripts/duo_mon.sh "$LEFT" "$RIGHT"
     elif [ "$MON" == "triple" ]; then
         # Get monitor names
         LEFT=$(ask_mon "Left")
