@@ -22,6 +22,6 @@ xmodmap ~/.Xmodmap &
 # Clipboard
 autocutsel -fork &
 # emacs daemon
-emacs --daemon
+KONSOLE_DBUS_SESSION=1 emacs -nw --daemon
 # Yay!
 exec xmonad
