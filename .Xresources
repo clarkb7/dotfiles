@@ -2,7 +2,7 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 URxvt*.depth: 32
-URxvt*.font: xft:DejaVuSansMono:pixelsize=13:antialias=true
+URxvt*.font: xft:DejaVuSansMonoforPowerline:pixelsize=13:antialias=true
 URxvt*.letterSpace: -1
 URxvt*.imLocal: en_US.utf8
 
