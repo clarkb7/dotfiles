@@ -62,8 +62,6 @@
 ;; evil mode
 (require 'evil)
 (evil-mode 1)
-(define-key evil-motion-state-map (kbd "<f13>") 'evil-insert-state)
-(define-key evil-insert-state-map (kbd "<f13>") (lambda () (evil-normal-state) (interactive) (evil-forward-char) ))
 
 ;; flycheck (syntax checker)
 (require 'flycheck)
@@ -99,6 +97,10 @@
 (global-evil-mc-mode 1)
 
 ;; emacs stuff
+;;(setq meta-prefix-char [f13])
+;;(global-unset-key (kbd "ESC"))
+;;(global-unset-key [f13])
+;;(global-set-key [f13] 'evil-normal-state)
 (setq linum-format (lambda (line) (propertize (format (let ((w (length (number-to-string (count-lines (point-min) (point-max)))))) (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
 (electric-pair-mode 1)
 (define-key global-map (kbd "RET") 'newline-and-indent)
