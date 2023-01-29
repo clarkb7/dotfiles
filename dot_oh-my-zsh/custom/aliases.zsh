@@ -20,7 +20,8 @@ man() {
 
 # grep
 grep_exclude_dirs=".git .tox .vs"
-grep_exclude_dir_opts=$(for d in $grep_exclude_dirs; do echo -n "--exclude-dir $d "; done)
+# NOTE: command expansion on array for zsh/bash compat
+grep_exclude_dir_opts=$(for d in $(echo "$grep_exclude_dirs"); do echo -n "--exclude-dir $d "; done)
 
 alias pygrep="grep -R --include '*.py'"
 alias gogrep="grep -R --include '*.go'"
