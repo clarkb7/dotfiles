@@ -7,3 +7,5 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export EDITOR=vim
+# Enable ctrl-s forward-i-search
+stty -ixon
