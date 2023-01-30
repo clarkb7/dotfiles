@@ -14,3 +14,8 @@
     url = "https://github.com/amix/vimrc/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
+[".vim_runtime/my_plugins/vim-ps1"]
+    type = "archive"
+    url = "https://github.com/PProvost/vim-ps1/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
