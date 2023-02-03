@@ -1,12 +1,12 @@
 {{ if ne .chezmoi.os "linux" }}
-run_once_1-install-packages.sh
-run_once_2-install-dircolor.sh
-run_once_2-install-vimrc.sh
-dot_zshrc
-dot_oh-my-zsh
-dot_tmux.conf
+1-install-packages.sh
+2-install-dircolor.sh
+2-install-vimrc.sh
+.zshrc
+.oh-my-zsh
+.tmux.conf
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
-run_once_1-install-packages.ps1
+1-install-packages.ps1
 {{ end }}
