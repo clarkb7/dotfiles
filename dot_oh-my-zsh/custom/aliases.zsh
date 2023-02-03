@@ -30,3 +30,10 @@ alias rgrep="rgrep $grep_exclude_dir_opts"
 
 # cat with highlighting
 alias hl='highlight --style molokai --out-format=xterm256'
+
+function wsl1 {
+    wsl.exe -d debian-wsl1 --cd ~
+}
+function wsl2 {
+    wsl.exe -d debian-docker --cd ~
+}
