@@ -12,4 +12,4 @@ git_custom_status() {
 }
 RPS1='$(git_custom_status) $EPS1'
 
-PROMPT='%(!.%{$fg[red]%}.)[%m]%{$fg[cyan]%}[%c]% %(?.%{$reset_color%}.%{$fg[red]%})% %(!.#.$) %{$reset_color%}'
+PROMPT='%(!.%{$fg[red]%}.)[$HOSTID]%{$fg[cyan]%}[%c]% %(?.%{$reset_color%}.%{$fg[red]%})% %(!.#.$) %{$reset_color%}'
