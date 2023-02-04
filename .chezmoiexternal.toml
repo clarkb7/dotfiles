@@ -13,6 +13,11 @@
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}
+["AppData/Local/ColorTool"]
+    type = "archive"
+    url = "https://github.com/microsoft/terminal/releases/download/1708.14008/colortool.zip"
+    exact = true
+    refreshPeriod = "168h"
 {{ end }}
 
 [".vim_runtime"]

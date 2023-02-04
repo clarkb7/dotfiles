@@ -11,3 +11,5 @@
 1-install-packages.ps1
 2-install-vimrc.ps1
 {{ end }}
+
+helpers.ps1
