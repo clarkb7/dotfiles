@@ -1,15 +1,12 @@
 {{ if ne .chezmoi.os "linux" }}
-1-install-packages.sh
-2-install-dircolor.sh
-2-install-vimrc.sh
+*.sh
 .zshrc
 .oh-my-zsh
 .tmux.conf
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
-1-install-packages.ps1
-2-install-vimrc.ps1
+*.ps1
 Documents
 {{ end }}
 
