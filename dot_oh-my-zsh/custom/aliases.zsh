@@ -31,6 +31,57 @@ alias rgrep="rgrep $grep_exclude_dir_opts"
 # cat with highlighting
 alias hl='highlight --style molokai --out-format=xterm256'
 
+# git aliases
+function git-url {
+    file_path=$1
+    # Get path to a directory within the repo based on $file_path
+    if [ -d "$file_path" ]; then
+        urltype="tree"
+        basedir="$file_path"
+    else
+        urltype="blob"
+        basedir="$(dirname "$(realpath "$file_path")")"
+    fi
+    # Get root of git repo
+    gitdir="$(git -C "$basedir" rev-parse --show-toplevel)"
+    function _gitcmd {
+        git -C "$gitdir" "$@"
+    }
+
+    # Get file path relative to repo
+    rel_path="$(realpath --relative-to "$gitdir" "$file_path")"
+    if [ -z "$rel_path" ]; then
+        >&2 echo "ERROR: Unable to get repo path for $file_path, is $(/bin/pwd) a git repo?"
+        return
+    fi
+
+    # Get remote, strip .git from end
+    remote="$(_gitcmd config --get remote.origin.url | sed 's/\.git$//')"
+    if [ -z "$remote" ]; then
+        >&2 echo "ERROR: Remote is empty, is $(/bin/pwd) a git repo?"
+        return
+    fi
+
+    if [ "$remote" = "http*" ]; then
+        # Done
+    else
+        # best effort convert SSH URL to HTTPS URL
+        # Example: git@github.com:datadog/integrations-core -> https://github.com/datadog/integrations-core
+        remote="$(echo "$remote" | sed 's/git@\([^:]\+\):\(.*\)/https:\/\/\1\/\2/')"
+    fi
+
+    # Add commit
+    commit="$(_gitcmd rev-parse HEAD)"
+    if [ -z "$commit" ]; then
+        >&2 echo "ERROR: commit hash is empty, is $(/bin/pwd) a git repo?"
+        return
+    fi
+
+    # Build URL
+    url="$remote/$urltype/$commit/$rel_path"
+    echo $url
+}
+
 function wsl1 {
     wsl.exe -d debian-wsl1 --cd ~
 }
