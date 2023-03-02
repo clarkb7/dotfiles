@@ -13,7 +13,7 @@ source $ZSH/oh-my-zsh.sh
 #
 export EDITOR=vim
 export PAGER=less
-export LESS=FR
+export LESS=FRx4
 
 # Enable ctrl-s forward-i-search
 stty -ixon
